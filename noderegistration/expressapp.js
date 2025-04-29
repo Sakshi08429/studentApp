@@ -1,6 +1,7 @@
 const express=require('express');
 const cors=require('cors');
 const fs=require('fs').promises;
+const student=require('./model/student');
 const app=express();
 const port=3002;
 app.use(express.json()); // middleware
@@ -18,8 +19,11 @@ res.status(200).json({msg:"Successfully login"});
     }
 })
 
-app.post('/register',(req,res)=>{
+app.post('/register',async(req,res)=>{
    // res.send("<h2>Welcome to express server post method</h2>");
+   const sregdata=req.body;
+   await student.create(sregdata);
+   //console.log(sregdata);
    res.status(200).json({msg:"Successfully registered"});
 })
 
